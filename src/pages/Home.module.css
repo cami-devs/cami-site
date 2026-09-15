@@ -1,25 +1,51 @@
+/* ---- two-column split: ledger on the left (~60%), tessellation right (~40%) ---- */
+
 .page {
-  width: 75%;
+  height: 100vh;
   max-width: var(--measure-wide);
   margin: 0 auto;
-  padding: var(--space-5) var(--space-4) var(--space-6);
+  padding: var(--space-3) var(--space-4);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.ledger {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* sections hug the top; slack pools at the bottom */
+  min-height: 0;
+  /* the whole point is zero page scroll — if the ledger itself can't fit a
+     short viewport, it scrolls internally rather than growing the page */
+  overflow-y: auto;
+  padding-top: var(--space-6);
+  padding-right: var(--space-2);
+}
+
+/* Section's page-level top margin is too airy for a single-viewport ledger */
+.ledger section {
+  margin-top: var(--space-3);
+}
+
+.panelColumn {
+  min-height: 0;
 }
 
 /* ---- intro ---- */
 
-.intro {
-  margin-top: var(--space-4);
-}
-
 .name {
-  font-size: var(--text-2xl);
+  font-size: var(--text-xl);
+  font-weight: 400;
   line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .introText {
   margin-top: var(--space-2);
   max-width: var(--measure);
-  font-size: var(--text-md);
+  line-height: var(--leading);
   color: var(--color-muted);
 }
 
@@ -27,13 +53,7 @@
   margin-top: var(--space-2);
 }
 
-/* the collage sits much wider than the text, flush under the intro */
-.page :global(.bleed) {
-  margin-top: 0;
-}
-
-/* ---- entry list: shared by Writing / Projects / Previously / Piano
-   — one tight, scannable line per entry: Title [link] ---- */
+/* ---- entry list: one tight, scannable line per entry — Title [link] ---- */
 
 .entryList {
   list-style: none;
@@ -42,10 +62,10 @@
 }
 
 .entry + .entry {
-  margin-top: var(--space-2);
+  margin-top: var(--space-1-5);
 }
 
-/* Writing / Projects: a clickable Sierpinski bullet leads each line */
+/* a clickable Sierpinski bullet leads each line */
 .entryRow {
   display: flex;
   align-items: flex-start;
@@ -59,6 +79,10 @@
   line-height: var(--leading-snug);
 }
 
+.entryLine + .entryLine {
+  margin-top: var(--space-1-5);
+}
+
 .entryTitle {
   font-weight: 500;
 }
@@ -70,7 +94,7 @@
 }
 
 .actionLink {
-  color: var(--color-muted);
+  color: var(--color-faint);
   transition: color 0.15s ease;
 }
 
@@ -79,63 +103,31 @@
 }
 
 .badge {
-  color: var(--color-muted);
+  color: var(--color-faint);
 }
 
 .sectionLinkRow {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
 }
 
-/* ---- work experience: candid photo beside the retrospective text ---- */
+/* ---- narrow screens: the split can't hold, so stack and let the page scroll ---- */
 
-.workRow {
-  display: flex;
-  gap: var(--space-4);
-  align-items: flex-start;
-}
-
-.workPhoto {
-  flex-shrink: 0;
-  width: 128px;
-  height: 128px;
-  object-fit: cover;
-  border: 1px solid var(--color-rule);
-}
-
-.workRow .entryLine {
-  padding-top: var(--space-1);
-}
-
-@media (max-width: 640px) {
-  .workRow {
-    flex-direction: column;
+@media (max-width: 900px) {
+  .page {
+    height: auto;
+    grid-template-columns: 1fr;
+    overflow: visible;
   }
-}
 
-/* ---- footer: a quiet index, not a navbar ---- */
+  .ledger {
+    overflow-y: visible;
+    padding-right: 0;
+  }
 
-.footer {
-  margin-top: var(--section-gap);
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--color-rule);
-}
-
-.index {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2) var(--space-3);
-  font-size: var(--text-sm);
-}
-
-.index a {
-  color: var(--color-muted);
-  text-decoration: none;
-  transition: color 0.15s ease;
-}
-
-.index a:hover {
-  color: var(--color-accent-red);
+  .panelColumn {
+    height: 70vh;
+  }
 }

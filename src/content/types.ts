@@ -34,9 +34,11 @@ export type WorkExperience = {
   link: ActionLink
   /** path into public/work/ — omitted entries just render without a photo */
   photo?: string
+  /** true to keep the entry in the data but leave it out of the homepage list */
+  hidden?: boolean
 }
 
-/** one frame in the homepage sine-wave gallery — path into public/photos/ */
+/** one cell in the homepage tessellation — bundled URL + filename-derived label */
 export type GalleryPhoto = {
   src: string
   alt: string

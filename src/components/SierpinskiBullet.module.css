@@ -18,7 +18,7 @@
 }
 
 .bullet polygon {
-  fill: var(--color-muted);
+  fill: var(--color-faint);
   transition: fill 0.15s ease;
 }
 

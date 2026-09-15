@@ -1,14 +1,16 @@
 :root {
   /* ---- color — named by role, not by hue ---- */
   --color-bg:        #FAF8F5;                 /* page background — warm cream paper */
-  --color-ink:       #1C1917;                 /* primary text — warm charcoal, not harsh black */
-  --color-muted:     #666666;                 /* secondary text, metadata, default-state tag links */
+  --color-ink:       #1F1E1D;                 /* primary text — warm charcoal, not harsh black */
+  --color-muted:     #525252;                 /* secondary prose — bio, bylines, captions */
+  --color-faint:     #737373;                 /* default state for mono tag links */
   --color-accent-red: #C2410C;                /* "red drafting pen" — link/marker/axis-label hover */
   --color-accent:    #EDEAE3;                 /* small fills (card backgrounds, hover chips) — warm off-white */
   --color-pink:      #EAE4D6;                 /* soft highlight, ::selection — warm highlighter */
   --color-rule:      #E7E2DA;                 /* dividers & hairline borders */
   --color-grid:      rgba(231, 226, 218, 0.5); /* drafting-grid background lines */
-  --color-axis:      rgba(60, 50, 40, 0.25);  /* plot axes — sharper than a general hairline */
+  --color-axis:      rgba(60, 50, 40, 0.25);  /* plot axes, Voronoi wireframe */
+  --color-mesh-link: rgba(194, 65, 12, 0.12); /* Delaunay connectors — accent red, barely there */
 
   /* ---- type family — high-contrast serif for headings, quiet sans for body,
      sharp monospace for metadata/tags/coordinates ---- */
@@ -17,22 +19,22 @@
   --font-mono:    'JetBrains Mono', 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   /* ---- type scale — named by relative size, spacious editorial sizing ---- */
-  --text-2xs:   0.71875rem; /* 11.5px — metadata & code: tags, ticks, masthead, byline */
-  --text-sm:    0.875rem;   /* 14px — captions, dates, meta */
-  --text-base:  0.84375rem; /* 13.5px — body copy */
-  --text-md:    1.125rem;   /* 18px — intro paragraph, section ledes */
-  --text-lg:    1.5rem;     /* 24px — section headings */
-  --text-xl:    2rem;       /* 32px — project titles / minor display */
-  --text-2xl:   2.875rem;   /* 46px — the "hi, i'm cami" intro */
+  --text-2xs:   0.75rem;    /* 12px — mono links, tags, plot ticks */
+  --text-sm:    0.90625rem; /* 14.5px — bullet/list items */
+  --text-base:  0.9375rem;  /* 15px — body copy & the bio line */
+  --text-md:    1.125rem;   /* 18px — lead text on the deeper pages */
+  --text-lg:    1.25rem;    /* 20px — section headings */
+  --text-xl:    2rem;       /* 32px — the name */
 
   /* ---- line height — unitless so it scales with font size ---- */
   --leading-tight: 1.15;    /* large serif headings */
-  --leading-snug:  1.35;    /* compact list lines */
-  --leading:       1.65;    /* body */
+  --leading-snug:  1.5;     /* list lines */
+  --leading:       1.65;    /* body prose */
 
   /* ---- space — a ramp, so vertical rhythm stays consistent ---- */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
+  --space-1:   0.25rem;
+  --space-1-5: 0.375rem;  /* row rhythm inside a section's list */
+  --space-2:   0.5rem;
   --space-3: 1rem;
   --space-4: 2rem;
   --space-5: 2rem;   /* was 3rem — tighter page/figure padding */
@@ -40,8 +42,11 @@
 
   /* ---- layout ---- */
   --measure:      47rem;    /* ~750px — prose measure, caps paragraph line length */
-  --measure-wide: 72rem;    /* the page shell, hero, and gallery all align to this */
-  --section-gap:  1.75rem;  /* was 3.25rem — tight, scannable rhythm between sections */
+  --measure-wide: 72rem;    /* the page shell and the two-column split align to this */
+  --section-gap:  1.75rem;  /* rhythm between sections on the deeper pages */
   --grid-size:    32px;     /* drafting-grid interval */
-  --shadow-card:  0 2px 8px rgba(0, 0, 0, 0.04); /* subtle elevation on gallery cards */
+
+  /* ---- elevation — photo cards sitting on the paper ---- */
+  --shadow-card:       0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
 }

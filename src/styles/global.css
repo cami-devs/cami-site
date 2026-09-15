@@ -12,7 +12,6 @@ body {
   line-height: var(--leading);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden; /* enables the .bleed escape hatch below */
 }
 
 h1, h2, h3 {
@@ -49,11 +48,3 @@ hr {
 }
 
 ::selection { background: var(--color-pink); }
-
-/* escape hatch: lets one child break out of the centered column
-   and span the full viewport width */
-.bleed {
-  width: 100vw;
-  margin-left: 50%;
-  transform: translateX(-50%);
-}

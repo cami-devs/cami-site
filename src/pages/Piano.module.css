@@ -58,7 +58,7 @@
   margin-top: var(--space-1);
   font-family: var(--font-mono);
   font-size: var(--text-2xs);
-  color: var(--color-muted);
+  color: var(--color-faint);
   transition: color 0.15s ease;
 }
 

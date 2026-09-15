@@ -8,7 +8,7 @@ import type { WritingEntry } from './types'
 export const writing: WritingEntry[] = [
   {
     slug: 'uniswap-default-slippage',
-    title: 'how a slippage change impacts trader behavior on dex markets',
+    title: 'how a slippage change impacts trader behavior on DEX markets',
     link: {
       label: 'ssrn ↗',
       url: 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4674478',
