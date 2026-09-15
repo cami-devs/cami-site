@@ -1,0 +1,119 @@
+.page {
+  width: 75%;
+  max-width: var(--measure-wide);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4) var(--space-6);
+}
+
+.back {
+  font-size: var(--text-sm);
+}
+
+.back a {
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.back a:hover {
+  color: var(--color-accent-red);
+}
+
+/* ---- intro ---- */
+
+.intro {
+  margin-top: var(--space-4);
+}
+
+.name {
+  font-size: var(--text-xl);
+}
+
+.tagline {
+  margin-top: var(--space-2);
+  max-width: var(--measure);
+  font-size: var(--text-md);
+  color: var(--color-muted);
+}
+
+/* ---- recordings ---- */
+
+.recordings {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recording + .recording {
+  margin-top: var(--space-2);
+}
+
+.recordingTitle {
+  max-width: var(--measure);
+  font-size: var(--text-md);
+}
+
+.actionLink {
+  display: inline-block;
+  margin-top: var(--space-1);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--color-muted);
+  transition: color 0.15s ease;
+}
+
+.actionLink:hover {
+  color: var(--color-accent-red);
+}
+
+/* ---- shared list styling for education / instructors / awards ---- */
+
+.label {
+  margin-top: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.institution {
+  max-width: var(--measure);
+  font-size: var(--text-md);
+}
+
+.list {
+  margin-top: var(--space-1);
+  max-width: var(--measure);
+  padding-left: 1.25em;
+}
+
+.list li + li {
+  margin-top: var(--space-1);
+}
+
+/* ---- repertoire ---- */
+
+.repGroup + .repGroup {
+  margin-top: var(--space-4);
+}
+
+.repCategory {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.repList {
+  margin-top: var(--space-2);
+  max-width: var(--measure);
+  padding-left: 1.25em;
+}
+
+.repWork + .repWork {
+  margin-top: var(--space-1);
+}
+
+.composer {
+  color: var(--color-muted);
+}

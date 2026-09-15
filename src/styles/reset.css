@@ -1,0 +1,23 @@
+/* minimal, opinionated reset — structure only, no design values */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+/* headings inherit size/weight by default; they get real styles in global.css */
+h1, h2, h3, h4 {
+  font-weight: 400;
+  font-size: inherit;
+}

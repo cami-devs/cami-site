@@ -1,0 +1,59 @@
+/* element-level defaults — everything here consumes tokens.css */
+
+body {
+  background-color: var(--color-bg);
+  background-image:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden; /* enables the .bleed escape hatch below */
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.01em;
+  /* capitalization is written by hand per-heading, not forced in CSS */
+}
+
+em, i {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+}
+
+a {
+  color: var(--color-muted);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  text-decoration-color: var(--color-rule);
+  transition: color 0.15s ease;
+}
+a:hover {
+  color: var(--color-accent-red);
+  text-decoration-color: currentColor;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--color-rule);
+  margin: var(--space-5) 0;
+}
+
+::selection { background: var(--color-pink); }
+
+/* escape hatch: lets one child break out of the centered column
+   and span the full viewport width */
+.bleed {
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}

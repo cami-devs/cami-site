@@ -1,0 +1,121 @@
+.page {
+  width: 75%;
+  max-width: var(--measure-wide);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4) var(--space-6);
+}
+
+.back {
+  font-size: var(--text-sm);
+}
+
+.back a {
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.back a:hover {
+  color: var(--color-accent-red);
+}
+
+/* ---- intro ---- */
+
+.intro {
+  margin-top: var(--space-4);
+  max-width: var(--measure);
+}
+
+.title {
+  font-size: var(--text-xl);
+  line-height: var(--leading-tight);
+}
+
+.byline {
+  margin-top: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--color-muted);
+}
+
+.videoLink {
+  margin-top: var(--space-3);
+}
+
+/* ---- author's note ---- */
+
+.note {
+  margin-top: var(--section-gap);
+  max-width: var(--measure);
+  padding: var(--space-4);
+  background: var(--color-accent);
+  border: 1px solid var(--color-rule);
+}
+
+.note p + p {
+  margin-top: var(--space-2);
+}
+
+/* ---- body ---- */
+
+.body {
+  margin-top: var(--section-gap);
+  max-width: var(--measure);
+}
+
+.body p {
+  margin-top: var(--space-3);
+}
+
+.body p:first-child {
+  margin-top: 0;
+}
+
+.quote {
+  margin: var(--space-4) 0;
+  padding-left: var(--space-3);
+  border-left: 1px solid var(--color-rule);
+  color: var(--color-muted);
+}
+
+/* ---- sources ---- */
+
+.sources {
+  margin-top: var(--section-gap);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-rule);
+  max-width: var(--measure);
+}
+
+.label {
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sourcesList {
+  margin-top: var(--space-2);
+  padding-left: 1.25em;
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.sourcesList li + li {
+  margin-top: var(--space-1);
+}
+
+.pdfLink {
+  margin-top: var(--space-4);
+}
+
+.actionLink {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--color-muted);
+  transition: color 0.15s ease;
+}
+
+.actionLink:hover {
+  color: var(--color-accent-red);
+}
