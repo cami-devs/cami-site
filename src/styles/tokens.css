@@ -9,13 +9,16 @@
   --color-pink:      #EAE4D6;                 /* soft highlight, ::selection — warm highlighter */
   --color-rule:      #E7E2DA;                 /* dividers & hairline borders */
   --color-grid:      rgba(231, 226, 218, 0.5); /* drafting-grid background lines */
-  --color-axis:      rgba(60, 50, 40, 0.25);  /* plot axes, Voronoi wireframe */
-  --color-mesh-link: rgba(194, 65, 12, 0.12); /* Delaunay connectors — accent red, barely there */
+  --color-axis:      rgba(60, 50, 40, 0.25);  /* plot axes, drafting ticks */
+  --color-polar:     rgba(28, 25, 23, 0.12);  /* phase-plane rings & crosshairs */
+  --color-disc-edge: rgba(255, 255, 255, 0.8); /* white rim around a photo disc */
+  --color-surface:   #FFFFFF;                 /* pill badges sitting on the cream */
+  --color-backdrop:  rgba(28, 25, 23, 0.4);   /* dimmed page behind a modal */
 
   /* ---- type family — high-contrast serif for headings, quiet sans for body,
      sharp monospace for metadata/tags/coordinates ---- */
   --font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
-  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-body:    'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   --font-mono:    'JetBrains Mono', 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   /* ---- type scale — named by relative size, spacious editorial sizing ---- */
@@ -46,7 +49,7 @@
   --section-gap:  1.75rem;  /* rhythm between sections on the deeper pages */
   --grid-size:    32px;     /* drafting-grid interval */
 
-  /* ---- elevation — photo cards sitting on the paper ---- */
-  --shadow-card:       0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-card-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
+  /* ---- elevation — photo discs and popovers floating over the paper ---- */
+  --shadow-disc:       0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-disc-hover: 0 10px 28px rgba(0, 0, 0, 0.18);
 }

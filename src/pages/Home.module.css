@@ -106,6 +106,25 @@
   color: var(--color-faint);
 }
 
+/* same visual language as .actionLink, but it opens the ledger dialog */
+.ledgerTrigger {
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--color-faint);
+  text-decoration: underline;
+  text-decoration-color: var(--color-rule);
+  text-underline-offset: 4px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.ledgerTrigger:hover {
+  color: var(--color-accent-red);
+}
+
 .sectionLinkRow {
   display: flex;
   justify-content: flex-start;

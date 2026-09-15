@@ -2,7 +2,7 @@ import type { PianoProfile } from './types'
 
 export const piano: PianoProfile = {
   name: 'Cami Yen, classical piano',
-  tagline: 'SFCM student (10 years), pianist (13 years)',
+  tagline: 'SFCM student (11 years), pianist (14 years)',
 
   education: {
     institution: 'San Francisco Conservatory of Music Pre-College (SFCM)',

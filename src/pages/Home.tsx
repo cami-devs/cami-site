@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom'
 import Section from '../components/Section'
-import Tessellation from '../components/Tessellation'
+import PhasePlane from '../components/PhasePlane'
 import SierpinskiBullet from '../components/SierpinskiBullet'
 import { projects } from '../content/projects'
 import { writing } from '../content/writing'
 import { workExperience } from '../content/workExperience'
 import { resumeUrl } from '../content/resume'
+import { totalPlayed } from '../content/golfCourses'
 import type { ActionLink } from '../content/types'
 import styles from './Home.module.css'
 
@@ -32,10 +33,9 @@ export default function Home() {
     <main className={styles.page}>
       <div className={styles.ledger}>
         <header className={styles.intro}>
-          <h1 className={styles.name}>Hi, I&rsquo;m Cami :)</h1>
+          <h1 className={styles.name}>Cami Yen</h1>
           <p className={styles.introText}>
-            Studying CS + Math @ Stanford. Into market structure, early tech/bio,
-            and classical piano.
+            Studying CS @ Stanford. Excited about market microstructure, early tech and healthcare, golf, and classical piano! SF Bay Area Lifer :)
           </p>
           <p className={styles.contactLine}>
             <a href="mailto:camiyen@stanford.edu" className={styles.actionLink}>
@@ -85,7 +85,7 @@ export default function Home() {
           </ul>
         </Section>
 
-        <Section id="previously" title="Previously">
+        <Section id="previously" title="Previous Work">
           <p className={styles.sectionLinkRow}>
             <a href={resumeUrl} className={styles.actionLink}>
               [resume.pdf ↗]
@@ -110,20 +110,24 @@ export default function Home() {
 
         <Section id="piano" title="Piano & Golf">
           <p className={styles.entryLine}>
-            10 years @ SFCM. Playing Beethoven Op. 31 No. 2, Bach BWV 851, and
-            Schubert Op. 90 No. 3.{' '}
+            10 years @ SFCM and 14 years of playing! French romanticism (Ravel/Debussy/Faure) enthusiast.{' '}
             <Link to="/piano" className={styles.actionLink}>
-              [music resume / repertoire ledger ↗]
+              [music resume and repertoire ledger ↗]
             </Link>
           </p>
           <p className={styles.entryLine}>
-            Scratch golfer (0.0 index), 18k+ tournament miles, 2 aces.
+            Scratch golfer (0.4 index), 20k+ tournament miles, 2 aces.
+          </p>
+          <p className={styles.entryLine}>
+            <Link to="/golf" className={styles.actionLink}>
+              [course ledger ↗]
+            </Link>
           </p>
         </Section>
       </div>
 
       <div className={styles.panelColumn}>
-        <Tessellation />
+        <PhasePlane />
       </div>
     </main>
   )

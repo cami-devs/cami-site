@@ -44,6 +44,13 @@ export type GalleryPhoto = {
   alt: string
 }
 
+/** one region of the golf course ledger */
+export type CourseGroup = {
+  region: string
+  played: string[]
+  wishlist?: string[]
+}
+
 /** a paragraph, or the one blockquote an essay occasionally needs */
 export type EssayBlock = { type: 'p'; text: string } | { type: 'quote'; text: string }
 

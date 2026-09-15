@@ -8,7 +8,7 @@ import type { WritingEntry } from './types'
 export const writing: WritingEntry[] = [
   {
     slug: 'uniswap-default-slippage',
-    title: 'how a slippage change impacts trader behavior on DEX markets',
+    title: 'slippage change impact on trader behavior in DEX markets',
     link: {
       label: 'ssrn ↗',
       url: 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4674478',
@@ -21,7 +21,7 @@ export const writing: WritingEntry[] = [
   },
   {
     slug: 'schubert-musical-architecture',
-    title: 'schubert piano piece rhetorical analysis (impromptu op. 90 no. 3)',
+    title: 'rhetorical analysis of schubert impromptu op. 90 no. 3 (piano)',
     link: { label: 'read ↗', url: '/writing/schubert-musical-architecture' },
   },
   {
