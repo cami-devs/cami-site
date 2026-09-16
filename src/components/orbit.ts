@@ -9,16 +9,18 @@
  *   x = cx + rx·cos θ·cos rot − ry·sin θ·sin rot
  *   y = cy + rx·cos θ·sin rot + ry·sin θ·cos rot
  *
- * Sizes are in ideal units and converted to pixels at paint time. Discs and
- * orbits scale by *different* factors on purpose: the photos are the point,
- * so they render at full size whenever they fit and the orbits take whatever
- * room is left.
+ * Orbits are authored in *panel-relative* units: 1 means "reaches the edge of
+ * the panel". At paint time each orbit is stretched by its own (sx, sy) so it
+ * fills a tall, narrow panel as readily as a wide one — no single outsized
+ * orbit forces the rest to shrink with it. Disc diameters are in px and scale
+ * separately: the photos are the point, so they render at full size whenever
+ * they fit and the orbits take whatever room is left.
  */
 
 export type Orbit = {
-  /** semi-axis along the orbit's own x, ideal units */
+  /** semi-axis along the orbit's own x, panel-relative (1 = panel edge) */
   rx: number
-  /** semi-axis along the orbit's own y, ideal units */
+  /** semi-axis along the orbit's own y, panel-relative (1 = panel edge) */
   ry: number
   /** tilt, radians */
   rot: number
@@ -30,16 +32,19 @@ export type Orbit = {
 
 const deg = (d: number) => (d * Math.PI) / 180
 
+// theta0 values come from a numeric search that maximises the smallest
+// edge-to-edge gap between discs on load and over the first ~40s of motion,
+// so the photos open spread across the panel instead of stacked in one spot
 export const ORBITS: Orbit[] = [
-  { rx: 360, ry: 130, rot: deg(-15), theta0: 0, speed: 0.0012 }, // wide horizontal
-  { rx: 140, ry: 330, rot: deg(20), theta0: 1.1, speed: -0.001 }, // tall vertical
-  { rx: 290, ry: 170, rot: deg(-45), theta0: 2.2, speed: 0.0014 }, // diagonal left
-  { rx: 190, ry: 180, rot: deg(0), theta0: 3.3, speed: -0.0011 }, // inner ring
-  { rx: 400, ry: 140, rot: deg(40), theta0: 4.4, speed: 0.0009 }, // diagonal right
-  { rx: 220, ry: 300, rot: deg(-30), theta0: 5.4, speed: -0.0013 }, // steep diagonal
+  { rx: 1.0, ry: 0.4, rot: deg(-15), theta0: 0.21, speed: 0.0012 }, // wide horizontal
+  { rx: 0.45, ry: 1.0, rot: deg(10), theta0: 1.64, speed: -0.001 }, // tall vertical
+  { rx: 1.0, ry: 0.5, rot: deg(-50), theta0: 5.95, speed: 0.0014 }, // diagonal left
+  { rx: 0.5, ry: 0.5, rot: deg(0), theta0: 2.72, speed: -0.0011 }, // inner ring
+  { rx: 1.0, ry: 0.45, rot: deg(50), theta0: 2.66, speed: 0.0009 }, // diagonal right
+  { rx: 0.7, ry: 0.95, rot: deg(-25), theta0: 0.92, speed: -0.0013 }, // steep diagonal
 ]
 
-export const DIAMETERS = [140, 150, 160, 170, 185, 200]
+export const DIAMETERS = [160, 168, 176, 180, 172, 164]
 
 const STIFFNESS = 0.12
 const DAMPING = 0.78
@@ -122,32 +127,66 @@ export function projectTheta(orbit: Orbit, x: number, y: number): number {
   return ((theta % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2)
 }
 
+/** px per panel-relative unit, per screen axis, for one orbit */
+export type AxisScale = { sx: number; sy: number }
+
 export type PlaneFit = {
   /** multiplier for disc diameters */
   discScale: number
-  /** multiplier for orbit axes */
-  orbitScale: number
+  /** one entry per orbit — each orbit is stretched to the panel on its own */
+  axes: AxisScale[]
 }
 
 /**
  * Split the panel between disc size and orbit extent.
  *
- * Each disc must stay inside the panel everywhere along its own orbit, so the
- * orbit factor is the tightest constraint across every disc and both axes.
+ * Each orbit gets its own horizontal and vertical stretch: panel-relative 1
+ * maps to "the panel edge, minus this disc's radius", so every disc stays
+ * fully inside the panel along its whole path. An orbit whose tilted bounding
+ * box pokes past ±1 is scaled down just enough to fit — only that orbit, never
+ * the others.
  */
 export function fitPlane(w: number, h: number): PlaneFit {
   const availW = Math.max(0, w / 2 - MARGIN)
   const availH = Math.max(0, h / 2 - MARGIN)
   const discScale = Math.min(1, (Math.min(availW, availH) * DISC_SHARE) / MAX_DISC_R)
 
-  let orbitScale = Infinity
-  ORBITS.forEach((orbit, i) => {
+  const axes = ORBITS.map((orbit, i) => {
     const discR = (DIAMETERS[i] / 2) * discScale
     const { halfW, halfH } = extent(orbit)
-    orbitScale = Math.min(orbitScale, (availW - discR) / halfW, (availH - discR) / halfH)
+    const fit = Math.min(1, 1 / halfW, 1 / halfH)
+    return {
+      sx: Math.max(0, availW - discR) * fit,
+      sy: Math.max(0, availH - discR) * fit,
+    }
   })
 
-  return { discScale, orbitScale: Math.max(0, Math.min(1, orbitScale)) }
+  return { discScale, axes }
+}
+
+/** panel-relative orbit point → px offset from the panel centre */
+export function toPixels(point: { x: number; y: number }, scale: AxisScale) {
+  return { x: point.x * scale.sx, y: point.y * scale.sy }
+}
+
+/** px offset from the panel centre → panel-relative units for that orbit */
+export function fromPixels(x: number, y: number, scale: AxisScale) {
+  return { x: scale.sx > 0 ? x / scale.sx : 0, y: scale.sy > 0 ? y / scale.sy : 0 }
+}
+
+/**
+ * SVG path for an orbit, in px around (cx, cy). A tilted ellipse stretched
+ * unevenly on x and y is still an ellipse, but no longer one SVG's <ellipse>
+ * can express with a single rotate — so it's sampled into a closed polyline.
+ */
+export function orbitPath(orbit: Orbit, scale: AxisScale, cx: number, cy: number): string {
+  const SEGMENTS = 120
+  let d = ''
+  for (let i = 0; i < SEGMENTS; i++) {
+    const p = toPixels(orbitPoint(orbit, (i / SEGMENTS) * Math.PI * 2), scale)
+    d += `${i === 0 ? 'M' : 'L'}${(cx + p.x).toFixed(1)},${(cy + p.y).toFixed(1)}`
+  }
+  return d + 'Z'
 }
 
 /** one damped-spring step of a value toward a target */

@@ -4,7 +4,7 @@
   height: 100vh;
   max-width: var(--measure-wide);
   margin: 0 auto;
-  padding: var(--space-3) var(--space-4);
+  padding: var(--rhythm) var(--space-4);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-4);
@@ -20,13 +20,8 @@
   /* the whole point is zero page scroll — if the ledger itself can't fit a
      short viewport, it scrolls internally rather than growing the page */
   overflow-y: auto;
-  padding-top: var(--space-6);
+  padding-top: var(--rhythm-2);
   padding-right: var(--space-2);
-}
-
-/* Section's page-level top margin is too airy for a single-viewport ledger */
-.ledger section {
-  margin-top: var(--space-3);
 }
 
 .panelColumn {
@@ -38,19 +33,21 @@
 .name {
   font-size: var(--text-xl);
   font-weight: 400;
-  line-height: 1.1;
+  line-height: var(--leading-display);
   letter-spacing: -0.02em;
 }
 
+/* intro lines stack row-on-row with no margins; the name's two-row line box
+   already leaves air beneath it */
 .introText {
-  margin-top: var(--space-2);
   max-width: var(--measure);
   line-height: var(--leading);
-  color: var(--color-muted);
+  color: var(--color-ink);
+  font-weight: 400;
 }
 
 .contactLine {
-  margin-top: var(--space-2);
+  line-height: var(--leading);
 }
 
 /* ---- entry list: one tight, scannable line per entry — Title [link] ---- */
@@ -59,10 +56,6 @@
   list-style: none;
   padding: 0;
   margin: 0;
-}
-
-.entry + .entry {
-  margin-top: var(--space-1-5);
 }
 
 /* a clickable Sierpinski bullet leads each line */
@@ -76,21 +69,24 @@
   max-width: var(--measure);
   color: var(--color-ink);
   font-size: var(--text-sm);
-  line-height: var(--leading-snug);
+  font-weight: 400;
+  line-height: var(--leading);
 }
 
-.entryLine + .entryLine {
-  margin-top: var(--space-1-5);
-}
-
+/* same weight and ink as the surrounding copy — titles don't shout */
 .entryTitle {
-  font-weight: 500;
+  font-weight: 400;
+  color: var(--color-ink);
 }
 
+/* line-height 1 keeps the smaller mono tags from stretching a row past one
+   grid unit when they share a line with 14.5px body text */
 .actionLink,
 .badge {
   font-family: var(--font-mono);
   font-size: var(--text-2xs);
+  line-height: 1;
+  white-space: nowrap; /* a tag like [ssrn ↗] moves to the next line whole, never split */
 }
 
 .actionLink {
@@ -125,11 +121,9 @@
   color: var(--color-accent-red);
 }
 
+/* a plain one-row line (not flex) so the inline link inherits the row height */
 .sectionLinkRow {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-bottom: var(--space-2);
+  line-height: var(--leading);
 }
 
 /* ---- narrow screens: the split can't hold, so stack and let the page scroll ---- */

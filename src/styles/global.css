@@ -22,6 +22,11 @@ h1, h2, h3 {
   /* capitalization is written by hand per-heading, not forced in CSS */
 }
 
+/* the big serif titles are ~32px — too tall for one row, so they take two */
+h1 {
+  line-height: var(--leading-display);
+}
+
 em, i {
   font-family: var(--font-display);
   font-style: italic;
@@ -44,7 +49,9 @@ a:hover {
 hr {
   border: none;
   border-top: 1px solid var(--color-rule);
-  margin: var(--space-5) 0;
+  /* the 1px border is paid back out of the bottom margin, so rule + margins
+     is exactly two grid rows and the text below stays on the grid */
+  margin: var(--rhythm) 0 calc(var(--rhythm) - 1px);
 }
 
 ::selection { background: var(--color-pink); }

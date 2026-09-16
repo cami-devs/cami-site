@@ -1,6 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { photos } from '../content/photos'
-import { DIAMETERS, ORBITS, fitPlane, orbitPoint, projectTheta, springStep } from './orbit'
+import {
+  DIAMETERS,
+  ORBITS,
+  fitPlane,
+  fromPixels,
+  orbitPath,
+  orbitPoint,
+  projectTheta,
+  springStep,
+  toPixels,
+} from './orbit'
 import styles from './PhasePlane.module.css'
 
 /**
@@ -49,7 +59,7 @@ export default function PhasePlane() {
   const stageRef = useRef<HTMLDivElement>(null)
   const readoutRef = useRef<HTMLSpanElement>(null)
   const vectorRef = useRef<SVGLineElement>(null)
-  const orbitRefs = useRef<(SVGEllipseElement | null)[]>([])
+  const orbitRefs = useRef<(SVGPathElement | null)[]>([])
   const discRefs = useRef<(HTMLDivElement | null)[]>([])
 
   // built once; mutated in place by the animation loop and by dragging, which
@@ -77,7 +87,7 @@ export default function PhasePlane() {
     const { w, h } = size
     const cx = w / 2
     const cy = h / 2
-    const { discScale, orbitScale } = fitPlane(w, h)
+    const { discScale, axes } = fitPlane(w, h)
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     let raf = 0
@@ -104,9 +114,9 @@ export default function PhasePlane() {
           }
         }
 
-        const base = orbitPoint(orbit, disc.theta)
-        const x = cx + base.x * orbitScale + disc.offX
-        const y = cy + base.y * orbitScale + disc.offY
+        const base = toPixels(orbitPoint(orbit, disc.theta), axes[i])
+        const x = cx + base.x + disc.offX
+        const y = cy + base.y + disc.offY
         const half = (disc.size * discScale) / 2
         const el = discRefs.current[i]
         if (el) {
@@ -126,10 +136,10 @@ export default function PhasePlane() {
           vector.setAttribute('opacity', '0')
         } else {
           const disc = discs[active]
-          const base = orbitPoint(ORBITS[active], disc.theta)
+          const base = toPixels(orbitPoint(ORBITS[active], disc.theta), axes[active])
           vector.setAttribute('opacity', '1')
-          vector.setAttribute('x2', (cx + base.x * orbitScale + disc.offX).toFixed(1))
-          vector.setAttribute('y2', (cy + base.y * orbitScale + disc.offY).toFixed(1))
+          vector.setAttribute('x2', (cx + base.x + disc.offX).toFixed(1))
+          vector.setAttribute('y2', (cy + base.y + disc.offY).toFixed(1))
         }
       }
 
@@ -138,9 +148,9 @@ export default function PhasePlane() {
           readoutRef.current.textContent = 'ORBITAL STATE: [r: —, θ: —]'
         } else {
           const disc = discs[active]
-          const base = orbitPoint(ORBITS[active], disc.theta)
-          const dx = base.x * orbitScale + disc.offX
-          const dy = base.y * orbitScale + disc.offY
+          const base = toPixels(orbitPoint(ORBITS[active], disc.theta), axes[active])
+          const dx = base.x + disc.offX
+          const dy = base.y + disc.offY
           const degrees = ((disc.theta * 180) / Math.PI) % 360
           readoutRef.current.textContent = `ORBITAL STATE: [r: ${Math.round(Math.hypot(dx, dy))}px, θ: ${Math.round(degrees < 0 ? degrees + 360 : degrees)}°]`
         }
@@ -166,12 +176,12 @@ export default function PhasePlane() {
     const stage = stageRef.current
     if (dragRef.current !== i || !size || !stage) return
     const rect = stage.getBoundingClientRect()
-    const { orbitScale } = fitPlane(size.w, size.h)
+    const scale = fitPlane(size.w, size.h).axes[i]
     const disc = discs[i]
     // θ is frozen mid-drag; the offset is what carries the disc to the cursor
-    const base = orbitPoint(ORBITS[i], disc.theta)
-    disc.offX = event.clientX - rect.left - rect.width / 2 - base.x * orbitScale
-    disc.offY = event.clientY - rect.top - rect.height / 2 - base.y * orbitScale
+    const base = toPixels(orbitPoint(ORBITS[i], disc.theta), scale)
+    disc.offX = event.clientX - rect.left - rect.width / 2 - base.x
+    disc.offY = event.clientY - rect.top - rect.height / 2 - base.y
   }
 
   const handlePointerUp = (i: number) => (event: React.PointerEvent<HTMLDivElement>) => {
@@ -180,23 +190,25 @@ export default function PhasePlane() {
     dragRef.current = null
     if (!size) return
 
-    const { orbitScale } = fitPlane(size.w, size.h)
-    if (orbitScale <= 0) return
+    const scale = fitPlane(size.w, size.h).axes[i]
+    if (scale.sx <= 0 || scale.sy <= 0) return
     const disc = discs[i]
-    const base = orbitPoint(ORBITS[i], disc.theta)
-    const heldX = base.x * orbitScale + disc.offX
-    const heldY = base.y * orbitScale + disc.offY
+    const base = toPixels(orbitPoint(ORBITS[i], disc.theta), scale)
+    const heldX = base.x + disc.offX
+    const heldY = base.y + disc.offY
 
-    // project where it was released onto this disc's own ellipse, keeping the
-    // rendered position identical this frame so the glide starts seamlessly
-    const theta = projectTheta(ORBITS[i], heldX / orbitScale, heldY / orbitScale)
-    const landing = orbitPoint(ORBITS[i], theta)
+    // project where it was released onto this disc's own ellipse (in orbit
+    // units), keeping the rendered position identical this frame so the glide
+    // starts seamlessly
+    const held = fromPixels(heldX, heldY, scale)
+    const theta = projectTheta(ORBITS[i], held.x, held.y)
+    const landing = toPixels(orbitPoint(ORBITS[i], theta), scale)
     disc.theta = theta
-    disc.offX = heldX - landing.x * orbitScale
-    disc.offY = heldY - landing.y * orbitScale
+    disc.offX = heldX - landing.x
+    disc.offY = heldY - landing.y
   }
 
-  const { discScale, orbitScale } = size ? fitPlane(size.w, size.h) : { discScale: 1, orbitScale: 1 }
+  const { discScale, axes } = size ? fitPlane(size.w, size.h) : { discScale: 1, axes: [] }
 
   return (
     <figure className={styles.panel}>
@@ -244,17 +256,13 @@ export default function PhasePlane() {
             <line className={styles.axis} x1={0} y1={size.h / 2} x2={size.w} y2={size.h / 2} />
             <line className={styles.axis} x1={size.w / 2} y1={0} x2={size.w / 2} y2={size.h} />
             {ORBITS.slice(0, DISC_COUNT).map((orbit, i) => (
-              <ellipse
+              <path
                 key={`${orbit.rx}-${orbit.ry}-${orbit.rot}`}
                 ref={(el) => {
                   orbitRefs.current[i] = el
                 }}
                 className={styles.orbit}
-                cx={size.w / 2}
-                cy={size.h / 2}
-                rx={orbit.rx * orbitScale}
-                ry={orbit.ry * orbitScale}
-                transform={`rotate(${((orbit.rot * 180) / Math.PI).toFixed(1)}, ${size.w / 2}, ${size.h / 2})`}
+                d={orbitPath(orbit, axes[i], size.w / 2, size.h / 2)}
               />
             ))}
             <line

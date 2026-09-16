@@ -1,3 +1,6 @@
+/* page shell, back link, and intro are kept 1:1 with Piano.module.css so the
+   two deeper pages read as one set */
+
 .page {
   width: 75%;
   max-width: var(--measure-wide);
@@ -25,114 +28,60 @@
   margin-top: var(--space-4);
 }
 
-.eyebrow {
-  display: block;
-  margin-bottom: var(--space-1);
-  font-family: var(--font-mono);
-  font-size: var(--text-2xs);
-  letter-spacing: 0.1em;
-  color: var(--color-accent-red);
-}
-
-.titleRow {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: var(--space-2);
-}
-
 .name {
   font-size: var(--text-xl);
-  font-style: italic;
 }
 
-.count,
-.stats {
-  font-family: var(--font-mono);
-  font-size: var(--text-2xs);
-  color: var(--color-muted);
-  letter-spacing: 0.04em;
-  font-variant-numeric: tabular-nums;
-}
-
-.stats {
+.tagline {
   margin-top: var(--space-2);
+  max-width: var(--measure);
+  font-size: var(--text-md);
+  color: var(--color-muted);
 }
 
-/* ---- regions ---- */
+/* ---- course list — same bulleted list as the piano page's coursework,
+   flowed into as many ~20rem columns as fit (one column on a phone) ---- */
 
-.regionCount {
+.list {
+  margin-top: var(--space-1);
+  padding-left: 0;
+  columns: 20rem;
+  column-gap: var(--space-4);
+  color: var(--color-ink);
+  font-weight: 400;
+}
+
+/* the indent lives on each item, not the list, so bullets line up in every
+   column rather than only the first */
+.list li {
+  margin-left: 1.25em;
+  break-inside: avoid;
+}
+
+.list li + li {
+  margin-top: var(--space-1);
+}
+
+/* home / ace / origin — the same quiet mono as the piano page's
+   [watch performance ↗] links */
+.note {
   font-family: var(--font-mono);
   font-size: var(--text-2xs);
   color: var(--color-faint);
-  font-variant-numeric: tabular-nums;
+  line-height: 1; /* the smaller mono text mustn't make its row taller than its neighbours */
+  white-space: nowrap;
 }
 
-.badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-1-5);
-  margin-top: var(--space-2);
-  padding: 0;
-  list-style: none;
-}
+/* ---- wishlist — one understated line, not a row of boxes ---- */
 
-.played,
-.wishlist {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-1-5);
-  padding: var(--space-1) var(--space-2);
-  border-radius: 2px;
-  font-size: var(--text-2xs);
-  line-height: var(--leading-snug);
-}
-
-.played {
-  border: 1px solid var(--color-rule);
-  background: var(--color-surface);
-  color: var(--color-ink);
-}
-
-/* home course — inverted, the one dark pill on the page */
-.played.home {
-  border-color: var(--color-ink);
-  background: var(--color-ink);
-  color: var(--color-bg);
-}
-
-/* hole-in-one courses — outlined in drafting-pen rust */
-.played.ace {
-  border-color: var(--color-accent-red);
-}
-
-/* where it all started — warm highlighter fill */
-.played.origin {
-  background: var(--color-pink);
-}
-
-.badgeTag {
-  font-family: var(--font-mono);
-  font-size: var(--text-2xs);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--color-accent-red);
-}
-
-/* ---- wishlist — not yet played, dashed and in rust ---- */
-
-.wishlistLabel {
+.targets {
   margin-top: var(--space-3);
-  font-family: var(--font-mono);
-  font-size: var(--text-2xs);
-  color: var(--color-accent-red);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  max-width: var(--measure);
+  color: var(--color-muted);
 }
 
-.wishlist {
-  border: 1px dashed var(--color-accent-red);
-  background: none;
-  color: var(--color-accent-red);
+.targetsLabel {
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  color: var(--color-faint);
 }

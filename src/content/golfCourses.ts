@@ -1,6 +1,7 @@
 export interface CourseEntry {
   name: string
-  badge?: 'origin' | 'home' | 'former home' | 'ace'
+  /** quiet inline annotation shown after the name, e.g. "home" or "ace #1" */
+  note?: string
 }
 
 export interface CourseGroup {
@@ -9,12 +10,18 @@ export interface CourseGroup {
   wishlist?: string[]
 }
 
+/** page header for /golf — mirrors piano.name / piano.tagline */
+export const golfProfile = {
+  name: 'Cami Yen, competitive golf',
+  tagline: '0.4 index, 20k+ tournament miles, 2 aces',
+}
+
 export const golfData: CourseGroup[] = [
   {
     region: 'SF Bay Area & Peninsula',
     played: [
-      { name: 'Stanford Golf Course', badge: 'home' },
-      { name: 'Peninsula Golf & Country Club', badge: 'ace' },
+      { name: 'Stanford Golf Course', note: 'home' },
+      { name: 'Peninsula Golf & Country Club', note: 'ace #2, former home' },
       'The Olympic Club (Lake, Ocean, Cliffs)',
       'TPC Harding Park (Championship)',
       'Burlingame Country Club',
@@ -34,11 +41,10 @@ export const golfData: CourseGroup[] = [
       'TPC Stonebrae',
       'Corica Park (South)',
       'Coyote Creek Golf Club (Tournament)',
-      'Wente Vineyards',
       'Baylands Golf Links',
       'Crystal Springs Golf Course',
       'Lincoln Park Golf Course',
-      { name: 'Blackberry Farm Golf Course', badge: 'origin' },
+      { name: 'Blackberry Farm Golf Course', note: 'origin' },
     ],
     wishlist: ['Poppy Ridge Golf Course'],
   },
@@ -62,14 +68,13 @@ export const golfData: CourseGroup[] = [
       'Pebble Beach Golf Links',
       'Spyglass Hill Golf Course',
       'Cypress Point Club',
-      'Tehàma Golf Club',
     ],
   },
   {
     region: 'Central Coast & Southern California',
     played: [
-      { name: 'The Mission Club (Vandenberg Village)', badge: 'ace' },
-      'PGA West (Stadium, Mountain, Dunes)',
+      { name: 'The Mission Club (Vandenberg Village)', note: 'ace #1' },
+      'PGA West (Stadium)',
     ],
     wishlist: [],
   },

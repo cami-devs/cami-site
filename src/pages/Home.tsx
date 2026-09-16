@@ -35,7 +35,8 @@ export default function Home() {
         <header className={styles.intro}>
           <h1 className={styles.name}>Cami Yen</h1>
           <p className={styles.introText}>
-            Studying CS @ Stanford. Excited about market microstructure, early tech and healthcare, golf, and classical piano! SF Bay Area Lifer :)
+            studying CS @ stanford.
+            excited about market microstructure, early tech and healthcare, golf, and classical piano!
           </p>
           <p className={styles.contactLine}>
             <a href="mailto:camiyen@stanford.edu" className={styles.actionLink}>
@@ -109,20 +110,30 @@ export default function Home() {
         </Section>
 
         <Section id="piano" title="Piano & Golf">
-          <p className={styles.entryLine}>
-            10 years @ SFCM and 14 years of playing! French romanticism (Ravel/Debussy/Faure) enthusiast.{' '}
-            <Link to="/piano" className={styles.actionLink}>
-              [music resume and repertoire ledger ↗]
-            </Link>
-          </p>
-          <p className={styles.entryLine}>
-            Scratch golfer (0.4 index), 20k+ tournament miles, 2 aces.
-          </p>
-          <p className={styles.entryLine}>
-            <Link to="/golf" className={styles.actionLink}>
-              [course ledger ↗]
-            </Link>
-          </p>
+          <ul className={styles.entryList}>
+            <li className={styles.entry}>
+              <div className={styles.entryRow}>
+                <SierpinskiBullet />
+                <p className={styles.entryLine}>
+                  Conservatory Pre-College (SFCM) alumni and French romanticism (Ravel/Debussy/Faure) enthusiast.{' '}
+                  <Link to="/piano" className={styles.actionLink}>
+                    [music resume and repertoire ledger ↗]
+                  </Link>
+                </p>
+              </div>
+            </li>
+            <li className={styles.entry}>
+              <div className={styles.entryRow}>
+                <SierpinskiBullet />
+                <p className={styles.entryLine}>
+                  Scratch golfer (0.4 index), 20k+ tournament miles, 2 aces.{' '}
+                  <Link to="/golf" className={styles.actionLink}>
+                    [course ledger ↗]
+                  </Link>
+                </p>
+              </div>
+            </li>
+          </ul>
         </Section>
       </div>
 

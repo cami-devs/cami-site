@@ -1,16 +1,18 @@
+/* vertical rhythm: gap (1 row) + rule (1 row) + heading (1 row), so the
+   section's content starts exactly on a grid line */
 .section {
   margin-top: var(--section-gap);
 }
 
+/* 1px border + (row − 1px) margin = one grid row */
 .rule {
-  margin: 0 0 var(--space-3);
+  margin: 0 0 calc(var(--rhythm) - 1px);
 }
 
 .head {
   display: flex;
   align-items: baseline;
   gap: var(--space-2);
-  margin-bottom: var(--space-2);
 }
 
 .symbol {
@@ -20,7 +22,7 @@
 
 .title {
   font-size: var(--text-lg);
-  line-height: 1.2;
+  line-height: var(--leading-tight);
   font-style: italic;
   font-weight: 400;
   letter-spacing: -0.01em;
