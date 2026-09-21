@@ -76,6 +76,55 @@ export type Essay = {
   pdf: string
 }
 
+/**
+ * One piece of a note's section. Add a case here (and a branch in Note.tsx)
+ * only when a genuinely new kind of content shows up — ordinary new material
+ * is just more blocks in src/content/notes.ts.
+ */
+/** an external link inside a run of text */
+export type NoteLink = { text: string; url: string }
+
+/**
+ * Text that may carry inline links: a plain string when it doesn't, or the
+ * pieces in order when it does — e.g.
+ * ['an asset management firm (', { text: 'rogersia.com', url: '…' }, ')']
+ */
+export type NoteText = string | (string | NoteLink)[]
+
+/**
+ * A bullet: a plain string, or a bold lead-in phrase followed by the rest.
+ * `lead` is rendered bold with a colon after it.
+ */
+export type NoteListItem = string | { lead: string; text: NoteText }
+
+export type NoteBlock =
+  | { type: 'p'; text: NoteText }
+  | { type: 'list'; items: NoteListItem[] }
+  /** `rows` entries line up with `columns`, cell by cell */
+  | { type: 'table'; columns: string[]; rows: string[][] }
+  /** `src` is a bundled asset URL, not a path string — see notes.ts */
+  | { type: 'image'; src: string; alt: string; caption?: string }
+
+export type NoteSection = {
+  /** anchor id for the <section>, e.g. "how-it-works" */
+  id: string
+  /** lowercase heading, e.g. "how it works" */
+  title: string
+  blocks: NoteBlock[]
+}
+
+/** a project or work write-up, rendered by the /notes/:slug route */
+export type Note = {
+  /** matches a Project.slug / WorkExperience.slug */
+  slug: string
+  title: string
+  /** one-paragraph lead under the title */
+  intro: NoteText
+  /** homepage anchor the "← back" link returns to; defaults to '/#projects' */
+  backTo?: string
+  sections: NoteSection[]
+}
+
 export type PianoEducation = {
   institution: string
   program: string

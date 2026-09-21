@@ -39,6 +39,53 @@
   color: var(--color-muted);
 }
 
+/* ---- bio + record, between the header and the ledger ---- */
+
+.bio {
+  margin-top: var(--space-3);
+  max-width: var(--measure);
+}
+
+/* the same bulleted list as the ledger below, but a single column — it's a
+   short list and reads as one block */
+.record {
+  margin-top: var(--space-3);
+  max-width: var(--measure);
+  padding-left: 0;
+  color: var(--color-ink);
+}
+
+.record li {
+  margin-left: 1.25em;
+}
+
+.record li + li {
+  margin-top: var(--space-1);
+}
+
+/* the site's hairline underline vanishes against the cream, so this borrows
+   the notes pages' treatment: faint underline, rust on hover */
+.recordLink {
+  color: inherit;
+  text-decoration-color: var(--color-faint);
+  white-space: nowrap;
+}
+
+.recordLink:hover {
+  color: var(--color-accent-red);
+}
+
+/* section-heading typography without a divider — the first region's own rule
+   follows immediately below */
+.ledgerLabel {
+  margin-top: var(--section-gap);
+  font-size: var(--text-lg);
+  line-height: var(--leading-tight);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
 /* ---- course list — same bulleted list as the piano page's coursework,
    flowed into as many ~20rem columns as fit (one column on a phone) ---- */
 

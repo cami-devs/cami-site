@@ -6,7 +6,6 @@ import { projects } from '../content/projects'
 import { writing } from '../content/writing'
 import { workExperience } from '../content/workExperience'
 import { resumeUrl } from '../content/resume'
-import { totalPlayed } from '../content/golfCourses'
 import type { ActionLink } from '../content/types'
 import styles from './Home.module.css'
 
@@ -126,7 +125,7 @@ export default function Home() {
               <div className={styles.entryRow}>
                 <SierpinskiBullet />
                 <p className={styles.entryLine}>
-                  Scratch golfer (0.4 index), 20k+ tournament miles, 2 aces.{' '}
+                  Scratch golfer (0.4 index), 20k+ miles traveled for tournaments, 2 aces.{' '}
                   <Link to="/golf" className={styles.actionLink}>
                     [course ledger ↗]
                   </Link>

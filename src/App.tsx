@@ -3,6 +3,7 @@ import Home from './pages/Home'
 import Piano from './pages/Piano'
 import Golf from './pages/Golf'
 import Essay from './pages/Essay'
+import Note from './pages/Note'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Route path="/piano" element={<Piano />} />
       <Route path="/golf" element={<Golf />} />
       <Route path="/writing/:slug" element={<Essay />} />
+      <Route path="/notes/:slug" element={<Note />} />
     </Routes>
   )
 }

@@ -16,6 +16,33 @@ export default function Golf() {
         <p className={styles.tagline}>{golfProfile.tagline}</p>
       </header>
 
+      <p className={styles.bio}>{golfProfile.bio}</p>
+
+      <ul className={styles.record}>
+        {golfProfile.record.map((item) => (
+          <li key={item.text}>
+            {item.text}
+            {item.link && (
+              <>
+                {' '}
+                <a
+                  href={item.link.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.recordLink}
+                >
+                  {item.link.label}
+                </a>
+              </>
+            )}
+          </li>
+        ))}
+      </ul>
+
+      {/* same italic serif as the section headings, but without a rule of its
+          own — each region below already brings one */}
+      <h2 className={styles.ledgerLabel}>{golfProfile.ledgerLabel}</h2>
+
       {golfData.map((group) => (
         <Section key={group.region} id={slugify(group.region)} title={group.region}>
           <ul className={styles.list}>

@@ -15,19 +15,6 @@ import styles from './PhasePlane.module.css'
 
 /**
  * Photo discs riding eccentric elliptical orbits around a shared origin.
- *
- * Each disc owns one tilted ellipse (see orbit.ts) and a parametric angle θ.
- * Idle, θ advances at that orbit's own authored rate; negative rates run the
- * orbit backwards, so neighbouring discs sweep past each other instead of
- * drifting in lockstep.
- *
- * Dragging lifts a disc off its orbit: θ freezes and an (offX, offY) offset
- * follows the cursor. On release the cursor point is projected back to the
- * closest θ on that disc's own ellipse and the leftover offset springs to
- * zero, so the disc glides onto its path instead of snapping to it.
- *
- * Per frame the loop writes transforms and attributes straight to the DOM
- * through refs, so 60fps costs zero React re-renders.
  */
 const DISC_COUNT = Math.min(ORBITS.length, photos.length)
 
@@ -236,17 +223,6 @@ export default function PhasePlane() {
               <strong>Orbits.</strong> Each photo owns one ellipse sharing the canvas origin,
               with its own semi-axes and tilt φ. A point at parametric angle θ is the
               axis-aligned point (a cos θ, b sin θ) rotated by φ.
-            </p>
-            <p>
-              <strong>Sweep rate.</strong> Each orbit carries its own angular rate, and half
-              of them run negative — so adjacent discs counter-rotate and cross rather than
-              travelling together.
-            </p>
-            <p>
-              <strong>Re-entry.</strong> Dragging lifts a disc off its path. On release the
-              cursor point is projected to the closest θ on that ellipse — a quartic, solved
-              here by a coarse sweep polished with Newton — and the leftover offset springs
-              to zero so the disc glides back into orbit.
             </p>
           </div>
         )}

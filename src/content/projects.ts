@@ -8,10 +8,7 @@ export const projects: Project[] = [
   {
     slug: 'institutional-holdings-13f',
     title: '13F fund correlation and sector rotation',
-    links: [
-      { label: 'code ↗', url: '#' },
-      { label: 'writeup ↗', url: '#' },
-    ],
+    links: [{ label: 'writeup ↗', url: '/notes/13f-holdings' }],
   },
   {
     slug: 'eval-harness',
@@ -21,9 +18,8 @@ export const projects: Project[] = [
   },
   {
     slug: 'haptic-metronome',
-    title:
-      'microcontroller tempo detection for haptic metronome',
-    links: [{ label: 'notes ↗', url: '#' }],
+    title: 'analog beat detection for a haptic metronome',
+    links: [{ label: 'notes ↗', url: '/notes/haptic-metronome' }],
   },
   {
     slug: 'm3-municipal-energy',

@@ -10,13 +10,49 @@ export interface CourseGroup {
   wishlist?: string[]
 }
 
+/** one line of the record list — `link` is appended after `text` when present */
+export type GolfRecordItem = {
+  text: string
+  link?: { label: string; url: string }
+}
+
 /** page header for /golf — mirrors piano.name / piano.tagline */
 export const golfProfile = {
   name: 'Cami Yen, competitive golf',
-  tagline: '0.4 index, 20k+ tournament miles, 2 aces',
+  tagline: '0.4 index, 20k+ miles traveled for tournaments, 2 aces',
+  bio: "I started playing at 5 and got serious at 12. At Nueva, my high school, I was the only girl on the boys' varsity team and co-captain from sophomore through senior year, growing the team from 10 to 20 players. Playing against longer hitters pushed me to win with course strategy and smart risk-taking instead of distance. I now play on Stanford's club golf team.",
+  /** heading shown above the course ledger regions */
+  ledgerLabel: 'where tournaments took me',
+  record: [
+    { text: 'Handicap index: 0.4' },
+    { text: 'Scoring average: about 77, low round 69' },
+    { text: 'Best AJGA rank: 561 nationally (high school class of 2025)' },
+    { text: 'Nueva varsity: four years, co-captain sophomore to senior year' },
+    {
+      text: 'Stanford club golf:',
+      link: {
+        label: 'tournament stats ↗',
+        url: 'https://nccga.org/app/golf-tournament-stats/camiyen',
+      },
+    },
+    { text: 'Tournament rounds: always walked' },
+    { text: '2 aces' },
+  ] satisfies GolfRecordItem[],
 }
 
 export const golfData: CourseGroup[] = [
+  {
+    region: 'National & International',
+    played: [
+      'Charles River Country Club (Boston)',
+      'The Bridges Golf & Country Club (Montrose, CO)',
+      'Walnut Creek Golf Preserve (Westminster, CO)',
+      'Wichita Country Club (Kansas)',
+      'Twin Hills Golf & Country Club (Joplin, MO)',
+      'Narashino Country Club (Chiba, Japan)',
+    ],
+    wishlist: [],
+  },
   {
     region: 'SF Bay Area & Peninsula',
     played: [
@@ -44,7 +80,7 @@ export const golfData: CourseGroup[] = [
       'Baylands Golf Links',
       'Crystal Springs Golf Course',
       'Lincoln Park Golf Course',
-      { name: 'Blackberry Farm Golf Course', note: 'origin' },
+      { name: 'Blackberry Farm Golf Course', note: 'first course ever' },
     ],
     wishlist: ['Poppy Ridge Golf Course'],
   },
@@ -67,7 +103,6 @@ export const golfData: CourseGroup[] = [
     wishlist: [
       'Pebble Beach Golf Links',
       'Spyglass Hill Golf Course',
-      'Cypress Point Club',
     ],
   },
   {
@@ -88,7 +123,7 @@ export const golfData: CourseGroup[] = [
       'The Reserve at Spanos Park (Stockton)',
       'Micke Grove Golf Links (Lodi)',
     ],
-    wishlist: ['Clear Creek Tahoe', 'Lahontan Golf Club', 'Mayacama Golf Club'],
+    wishlist: [],
   },
   {
     region: 'Hawaii',
@@ -99,17 +134,6 @@ export const golfData: CourseGroup[] = [
       'Mauna Kea Golf Course',
       'Hapuna Golf Course',
       'Mauna Lani Resort (North, South)',
-    ],
-    wishlist: ['Manele Golf Course (Lanai)', 'Poipu Bay Golf Course (Kauai)'],
-  },
-  {
-    region: 'National & International',
-    played: [
-      'Charles River Country Club (Boston)',
-      'The Bridges Golf & Country Club (Montrose, CO)',
-      'Wichita Country Club (Kansas)',
-      'Twin Hills Golf & Country Club (Joplin, MO)',
-      'Narashino Country Club (Chiba, Japan)',
     ],
     wishlist: [],
   },
