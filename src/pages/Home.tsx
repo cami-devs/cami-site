@@ -44,6 +44,29 @@ export default function Home() {
           </p>
         </header>
 
+        <Section id="previously" title="Previous Work">
+          <p className={styles.sectionLinkRow}>
+            <a href={resumeUrl} className={styles.actionLink}>
+              [resume.pdf ↗]
+            </a>
+          </p>
+          <ul className={styles.entryList}>
+            {workExperience
+              .filter((job) => !job.hidden)
+              .map((job) => (
+                <li key={job.slug} className={styles.entry}>
+                  <div className={styles.entryRow}>
+                    <SierpinskiBullet />
+                    <p className={styles.entryLine}>
+                      <span className={styles.entryTitle}>{job.role}</span>{' '}
+                      <LinkTag link={job.link} />
+                    </p>
+                  </div>
+                </li>
+              ))}
+          </ul>
+        </Section>
+
         <Section id="writing" title="Writing">
           <ul className={styles.entryList}>
             {writing
@@ -78,29 +101,6 @@ export default function Home() {
                           <LinkTag link={link} />
                         </span>
                       ))}
-                    </p>
-                  </div>
-                </li>
-              ))}
-          </ul>
-        </Section>
-
-        <Section id="previously" title="Previous Work">
-          <p className={styles.sectionLinkRow}>
-            <a href={resumeUrl} className={styles.actionLink}>
-              [resume.pdf ↗]
-            </a>
-          </p>
-          <ul className={styles.entryList}>
-            {workExperience
-              .filter((job) => !job.hidden)
-              .map((job) => (
-                <li key={job.slug} className={styles.entry}>
-                  <div className={styles.entryRow}>
-                    <SierpinskiBullet />
-                    <p className={styles.entryLine}>
-                      <span className={styles.entryTitle}>{job.role}</span>{' '}
-                      <LinkTag link={job.link} />
                     </p>
                   </div>
                 </li>
