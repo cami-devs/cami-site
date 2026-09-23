@@ -1,13 +1,21 @@
 import { Link } from 'react-router-dom'
 import Section from '../components/Section'
 import PhasePlane from '../components/PhasePlane'
-import SierpinskiBullet from '../components/SierpinskiBullet'
 import { projects } from '../content/projects'
 import { writing } from '../content/writing'
 import { workExperience } from '../content/workExperience'
 import { resumeUrl } from '../content/resume'
 import type { ActionLink } from '../content/types'
 import styles from './Home.module.css'
+
+/** the leading glyph on every ledger row — an arrow, so the row reads as an action */
+function EntryArrow() {
+  return (
+    <span className={styles.arrow} aria-hidden="true">
+      &rarr;
+    </span>
+  )
+}
 
 function LinkTag({ link }: { link: ActionLink }) {
   if (!link.url) {
@@ -55,8 +63,8 @@ export default function Home() {
               .filter((job) => !job.hidden)
               .map((job) => (
                 <li key={job.slug} className={styles.entry}>
-                  <div className={styles.entryRow}>
-                    <SierpinskiBullet />
+                  <div className={rowClass(job.featured)}>
+                    <EntryArrow />
                     <p className={styles.entryLine}>
                       <span className={styles.entryTitle}>{job.role}</span>{' '}
                       <LinkTag link={job.link} />
@@ -73,8 +81,8 @@ export default function Home() {
               .filter((entry) => !entry.hidden)
               .map((entry) => (
                 <li key={entry.slug} className={styles.entry}>
-                  <div className={styles.entryRow}>
-                    <SierpinskiBullet />
+                  <div className={rowClass(entry.featured)}>
+                    <EntryArrow />
                     <p className={styles.entryLine}>
                       <span className={styles.entryTitle}>{entry.title}</span>{' '}
                       <LinkTag link={entry.link} />
@@ -92,7 +100,7 @@ export default function Home() {
               .map((project) => (
                 <li key={project.slug} className={styles.entry}>
                   <div className={styles.entryRow}>
-                    <SierpinskiBullet />
+                    <EntryArrow />
                     <p className={styles.entryLine}>
                       <span className={styles.entryTitle}>{project.title}</span>{' '}
                       {project.links.map((link, i) => (
@@ -112,7 +120,7 @@ export default function Home() {
           <ul className={styles.entryList}>
             <li className={styles.entry}>
               <div className={styles.entryRow}>
-                <SierpinskiBullet />
+                <EntryArrow />
                 <p className={styles.entryLine}>
                   Conservatory Pre-College (SFCM) alumni and French romanticism (Ravel/Debussy/Faure) enthusiast.{' '}
                   <Link to="/piano" className={styles.actionLink}>
@@ -123,7 +131,7 @@ export default function Home() {
             </li>
             <li className={styles.entry}>
               <div className={styles.entryRow}>
-                <SierpinskiBullet />
+                <EntryArrow />
                 <p className={styles.entryLine}>
                   Scratch golfer (0.4 index), 20k+ miles traveled for tournaments, 2 aces.{' '}
                   <Link to="/golf" className={styles.actionLink}>
@@ -141,4 +149,9 @@ export default function Home() {
       </div>
     </main>
   )
+}
+
+/** rows flagged `featured` in the content files get the accent treatment */
+function rowClass(featured?: boolean) {
+  return featured ? `${styles.entryRow} ${styles.featured}` : styles.entryRow
 }

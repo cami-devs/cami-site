@@ -5,6 +5,8 @@
   --color-muted:     #525252;                 /* secondary prose — bio, bylines, captions */
   --color-faint:     #737373;                 /* default state for mono tag links */
   --color-accent-red: #C2410C;                /* "red drafting pen" — link/marker/axis-label hover */
+  --color-accent-wash: rgba(194, 65, 12, 0.07);  /* pill fill behind a highlighted [tag ↗] */
+  --color-accent-wash-strong: rgba(194, 65, 12, 0.14); /* same pill, hovered */
   --color-accent:    #EDEAE3;                 /* small fills (card backgrounds, hover chips) — warm off-white */
   --color-pink:      #EAE4D6;                 /* soft highlight, ::selection — warm highlighter */
   --color-rule:      #E7E2DA;                 /* dividers & hairline borders */

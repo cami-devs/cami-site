@@ -16,7 +16,11 @@ export default function Golf() {
         <p className={styles.tagline}>{golfProfile.tagline}</p>
       </header>
 
-      <p className={styles.bio}>{golfProfile.bio}</p>
+      {golfProfile.bio.map((paragraph) => (
+        <p key={paragraph} className={styles.bio}>
+          {paragraph}
+        </p>
+      ))}
 
       <ul className={styles.record}>
         {golfProfile.record.map((item) => (

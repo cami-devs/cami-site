@@ -24,6 +24,8 @@ export type WritingEntry = {
   link: ActionLink
   /** true to keep the entry in the data but leave it out of the homepage list */
   hidden?: boolean
+  /** draws the eye on the homepage: accent arrow, heavier title, pill-shaped tag */
+  featured?: boolean
 }
 
 export type WorkExperience = {
@@ -36,6 +38,8 @@ export type WorkExperience = {
   photo?: string
   /** true to keep the entry in the data but leave it out of the homepage list */
   hidden?: boolean
+  /** draws the eye on the homepage: accent arrow, heavier title, pill-shaped tag */
+  featured?: boolean
 }
 
 /** one cell in the homepage tessellation — bundled URL + filename-derived label */

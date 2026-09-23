@@ -13,6 +13,7 @@ export const writing: WritingEntry[] = [
       label: 'ssrn ↗',
       url: 'https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4674478',
     },
+    featured: true,
   },
   {
     slug: 'venture-capital-gatekeeper',

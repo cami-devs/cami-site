@@ -58,11 +58,33 @@
   margin: 0;
 }
 
-/* a clickable Sierpinski bullet leads each line */
+/* an arrow leads each line, so the row reads as something to act on */
 .entryRow {
   display: flex;
   align-items: flex-start;
   gap: var(--space-2);
+}
+
+.arrow {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-2xs);
+  line-height: var(--leading);
+  color: var(--color-faint);
+  user-select: none;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+/* hovering anywhere on the row nudges the arrow and underlines the tag, so the
+   whole line signals its target rather than just the small mono tag */
+.entryRow:hover .arrow {
+  transform: translateX(3px);
+  color: var(--color-accent-red);
+}
+
+.entryRow:hover .actionLink {
+  color: var(--color-accent-red);
+  text-decoration: underline;
 }
 
 .entryLine {
@@ -102,9 +124,43 @@
   color: var(--color-faint);
 }
 
+/* ---- featured rows: the three entries a first-time visitor should open ----
+   same layout as every other row, just an accent arrow, a little more weight in
+   the title, and a pill around the tag so it reads as a button */
+
+.featured .arrow {
+  color: var(--color-accent-red);
+}
+
+.featured .entryTitle {
+  font-weight: 500;
+}
+
+.featured .actionLink {
+  color: var(--color-accent-red);
+  background: var(--color-accent-wash);
+  border-radius: 999px;
+  padding: 0.2em 0.55em;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.featured .actionLink:hover,
+.entryRow.featured:hover .actionLink {
+  background: var(--color-accent-wash-strong);
+  text-decoration: none;
+}
+
 /* a plain one-row line (not flex) so the inline link inherits the row height */
 .sectionLinkRow {
   line-height: var(--leading);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow,
+  .entryRow:hover .arrow {
+    transform: none;
+    transition: color 0.15s ease;
+  }
 }
 
 /* ---- narrow screens: the split can't hold, so stack and let the page scroll ---- */

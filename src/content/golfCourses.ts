@@ -20,14 +20,18 @@ export type GolfRecordItem = {
 export const golfProfile = {
   name: 'Cami Yen, competitive golf',
   tagline: '0.4 index, 20k+ miles traveled for tournaments, 2 aces',
-  bio: "I started playing at 5 and got serious at 12. At Nueva, my high school, I was the only girl on the boys' varsity team and co-captain from sophomore through senior year, growing the team from 10 to 20 players. Playing against longer hitters pushed me to win with course strategy and smart risk-taking instead of distance. I now play on Stanford's club golf team.",
+  /** rendered as consecutive paragraphs on /golf */
+  bio: [
+    "I started playing at 5 and got serious at 12. At Nueva, my high school, I was the only girl on the boys' varsity team and co-captain from sophomore year on. Playing the back tees every week meant I couldn't overpower a hole, so I had to think my way around one: where a miss was survivable, which side of the fairway opened the angle in, how much a slope would feed or reject a shot. Most of my scoring came from those decisions, not distance.",
+    "That turned into an interest in how courses are built. Routing, wind, firm turf, the shape of a green complex — each course asks a slightly different question, and I like working out what it's asking before I play it. I now play on Stanford's club golf team.",
+  ],
   /** heading shown above the course ledger regions */
   ledgerLabel: 'where tournaments took me',
   record: [
     { text: 'Handicap index: 0.4' },
-    { text: 'Scoring average: about 77, low round 69' },
-    { text: 'Best AJGA rank: 561 nationally (high school class of 2025)' },
-    { text: 'Nueva varsity: four years, co-captain sophomore to senior year' },
+    { text: 'Scoring average: 77, low round 69' },
+    { text: 'AJGA: best rank 561 nationally, class of 2025' },
+    { text: "Nueva boys' varsity: four years, co-captain for three" },
     {
       text: 'Stanford club golf:',
       link: {
